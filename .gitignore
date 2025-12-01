@@ -9,7 +9,7 @@
 a.out
 
 # Папки для Visual Studio Code
-.vscode/
+# .vscode/
 
 # Папки и файлы для других IDE/Сборок, если они используются
 build/

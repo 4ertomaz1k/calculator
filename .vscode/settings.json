@@ -1,0 +1,22 @@
+{
+    // These settings only affect the file explorer in VS Code.
+    "files.exclude": {
+        "**/*.exe": true,       // Hide all executable files (.exe)
+        "**/*.o": true,         // Hide object files (.o) created during compilation
+        "**/a.out": true,       // Hide the default g++ output file
+        "**/bin": true,         // Hide the 'bin' folder (often used for compiled output)
+        "**/debug": true,       // Hide the 'debug' folder
+        "**/*.log": true        // Hide log files
+    },
+    // These settings exclude files from search results (Ctrl+Shift+F).
+    "search.exclude": {
+        "**/*.exe": true,
+        "**/*.o": true,
+        "**/bin": true,
+        "**/debug": true
+    },
+    "git.ignoreLimitWarning": true,
+    "files.associations": {
+        "memory": "cpp"
+    }
+}
