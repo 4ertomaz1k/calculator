@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using std::cin;
 using std::cout;
@@ -30,7 +31,7 @@ long double result(std::string display_)
 
             else
             {
-                v2 = std::stod(display_.substr(l+1,r+1));
+                v2 = std::stod(display_.substr(l+1,r-l));//substr gets(start position(index), len symbols)
             }
 
             l=r;
@@ -61,6 +62,8 @@ int main()
     std::string display;
     cin >> display;
 
+    cout << std::fixed;
+    cout << std::setprecision(15);
     cout << result(display) <<endl;
 
     return 0;
