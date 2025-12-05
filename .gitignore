@@ -5,6 +5,8 @@
 *.o
 *.obj
 
+*.dll
+
 #generate auxiliary files for GCC
 a.out
 
