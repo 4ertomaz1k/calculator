@@ -5,9 +5,6 @@
 *.o
 *.obj
 
-#hide sfml stuff
-*.dll
-
 #generate auxiliary files for GCC
 a.out
 
