@@ -1,16 +1,18 @@
-# Сгенерированные исполняемые файлы (для Windows)
+#executable
 *.exe
 
-# Сгенерированные объектные файлы (промежуточные)
+#object files(промежуточные)
 *.o
 *.obj
 
-# Сгенерированные вспомогательные файлы для GCC
+#hide sfml stuff
+*.dll
+
+#generate auxiliary files for GCC
 a.out
 
-# Папки для Visual Studio Code
+#folder for Visual Studio Code
 # .vscode/
 
-# Папки и файлы для других IDE/Сборок, если они используются
-build/
+# Folders and files for other IDEs/Assemblies, if they are usedbuild/
 bin/
