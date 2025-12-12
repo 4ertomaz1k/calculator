@@ -3,17 +3,26 @@
 #include <filesystem>
 
 // take arguments for customization the button
-Button::Button(float width, float height, float x, float y, int r, int g, int b, const std::string& text, const sf::Font& font): label(font)
+Button::Button(float width, float height, float radius, float x, float y, int r, int g, int b, int r_t, int g_t, int b_t, const std::string& text, const sf::Font& font): label(font)
 {
     //rectangle properties
         shape.setSize(sf::Vector2f(width, height));
         shape.setPosition(sf::Vector2f(x, y));
         shape.setFillColor(sf::Color(r, g, b));
+        shape.setCornersRadius(radius); 
+        shape.setCornerPointCount(20);
 
     //text properties
         label.setString(text);
-        label.setCharacterSize(30);       
-        label.setFillColor(sf::Color::White);
+        label.setCharacterSize(45);       
+        label.setFillColor(sf::Color(r_t, g_t, b_t));
+        
+    // shadow properties
+        shadowShape.setSize(sf::Vector2f(width, height));
+        shadowShape.setPosition(sf::Vector2f(x, y + 5));
+        shadowShape.setFillColor(sf::Color(0.6*r, 0.6*g, 0.6*b));
+        shadowShape.setCornersRadius(radius); 
+        shadowShape.setCornerPointCount(20);
 
 
     //Centering text on button
@@ -35,6 +44,7 @@ Button::Button(float width, float height, float x, float y, int r, int g, int b,
 // draw the button
 void Button::draw(sf::RenderWindow& window) const 
 {
+    window.draw(shadowShape);
     window.draw(shape);
     window.draw(label);
 }

@@ -6,15 +6,25 @@
 //g++ CalculatorView.cpp Button.cpp -o Calculator.exe -I"C:\SFML-3.0.2\include" -L"C:\SFML-3.0.2\lib" -lsfml-graphics -lsfml-window -lsfml-system
 int main()
 {
-    // Create the main window
-        sf::RenderWindow window(sf::VideoMode({375, 500}), "Calculator");
+
+    // Creating a context settings object
+    sf::ContextSettings settings;
+    settings.antiAliasingLevel = 8; //8x anti-aliasing
+        
+    // Creating the main window by passing the settings
+    sf::RenderWindow window(
+        sf::VideoMode({375, 500}), 
+        "Calculator", 
+        sf::State::Windowed, // We use the default style.
+        settings            // Passing the anti-aliasing settings
+    );
 
     //Create font
         const sf::Font font("arimo.ttf");//load font
 
     //Сreate buttons(rectangle)
-        Button button_0(255, 63.3, 15, 407.36, 60, 60, 60, "0", font);
-        Button button_1(75, 63.3, 15+255+15, 407.36, 60, 60, 60, "1", font);
+        Button button_0(255, 63.3, 10, 15, 407.36, 226, 226, 218, 0, 0, 0, "0", font);
+        Button button_1(75, 63.3, 10, 15+255+15, 407.36, 226, 226, 218, 0, 0, 0, "1", font);
 
     //Game loop - cycle need to every visual program for constant updating of the screen
         while (window.isOpen()) // general cycle: while not close

@@ -3,16 +3,18 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "RoundedRectangleShape.hpp"
 
 class Button {
 private:
     //main components of the button
-    sf::RectangleShape shape;
+    RoundedRectangleShape shape;
+    RoundedRectangleShape shadowShape;
     sf::Text label;
 
 public:
     // take arguments for customization the button
-    Button(float width, float height, float x, float y, int r, int g, int b, const std::string& text, const sf::Font& font);
+    Button(float width, float height, float radius, float x, float y, int r, int g, int b, int r_t, int g_t, int b_t, const std::string& text, const sf::Font& font);
     
     // draw the button
     void draw(sf::RenderWindow& window) const;
