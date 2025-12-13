@@ -23,9 +23,31 @@ int main()
         const sf::Font font("arimo.ttf");//load font
 
     //Сreate buttons(rectangle)
-        Button button_0(255, 63.3, 10, 15, 407.36, 226, 226, 218, 0, 0, 0, "0", font);
-        Button button_1(75, 63.3, 10, 15+255+15, 407.36, 226, 226, 218, 0, 0, 0, "1", font);
+    //Button::Button         (float width, float height, float radius, float x, float y, int r, int g, int b, int r_t, int g_t, int b_t, const std::string& text, const sf::Font& font): label(font)
+        Button button_0     (255, 63.3, 10, 15, 422.36, 226, 226, 218, 0, 0, 0, "0", font);
+        Button button_equals(75, 63.3, 10, 285, 422.36, 84, 84, 82, 255, 255, 255, "=", font);
 
+        Button button_1(75, 63.3, 10, 15, 346.42, 226, 226, 218, 0, 0, 0, "1", font);
+        Button button_2(75, 63.3, 10, 15+((75+15)*1), 346.42, 226, 226, 218, 0, 0, 0, "2", font);
+        Button button_3(75, 63.3, 10, 15+((75+15)*2), 346.42, 226, 226, 218, 0, 0, 0, "3", font);
+        Button button_plus(75, 63.3, 10, 15+((75+15)*3), 346.42, 84, 84, 82, 255, 255, 255, "+", font);
+
+        Button button_4(75, 63.3, 10, 15, 346.42-(75.94*1), 226, 226, 218, 0, 0, 0, "4", font);
+        Button button_5(75, 63.3, 10, 15+((75+15)*1), 346.42-(75.94*1), 226, 226, 218, 0, 0, 0, "5", font);
+        Button button_6(75, 63.3, 10, 15+((75+15)*2), 346.42-(75.94*1), 226, 226, 218, 0, 0, 0, "6", font);
+        Button button_minus(75, 63.3, 10, 15+((75+15)*3), 346.42-(75.94*1), 84, 84, 82, 255, 255, 255, "-", font);
+           
+        Button button_7(75, 63.3, 10, 15, 346.42-(75.94*2), 226, 226, 218, 0, 0, 0, "7", font);
+        Button button_8(75, 63.3, 10, 15+((75+15)*1), 346.42-(75.94*2), 226, 226, 218, 0, 0, 0, "8", font);
+        Button button_9(75, 63.3, 10, 15+((75+15)*2), 346.42-(75.94*2), 226, 226, 218, 0, 0, 0, "9", font);
+        Button button_multiply(75, 63.3, 10, 15+((75+15)*3), 346.42-(75.94*2), 84, 84, 82, 255, 255, 255, "*", font);
+
+        Button button_clear_all(75, 63.3, 10, 15, 346.42-(75.94*3), 49, 48, 46, 255, 255, 255, "C", font);
+        Button button_clear_last_symdol(75, 63.3, 10, 15+((75+15)*1), 346.42-(75.94*3), 49, 48, 46, 255, 255, 255, ">", font);
+        Button button_point(75, 63.3, 10, 15+((75+15)*2), 346.42-(75.94*3), 84, 84, 82, 255, 255, 255, ".", font);
+        Button button_division(75, 63.3, 10, 15+((75+15)*3), 346.42-(75.94*3), 84, 84, 82, 255, 255, 255, "/", font);
+
+        Button button_display(345, 100, 10, 15, 10, 120, 120, 120, 255, 255, 255, "", font);
     //Game loop - cycle need to every visual program for constant updating of the screen
         while (window.isOpen()) // general cycle: while not close
         {
@@ -41,9 +63,31 @@ int main()
                 }
 
             // 2. Drawing
-                window.clear(sf::Color::Black);//clear the screen by the black color
+                window.clear(sf::Color(175,175,175));//clear the screen by the black color     144, 142, 129
                 button_0.draw(window);
+                button_equals.draw(window);
+
                 button_1.draw(window);
+                button_2.draw(window);
+                button_3.draw(window);
+                button_plus.draw(window);
+
+                button_4.draw(window);
+                button_5.draw(window);
+                button_6.draw(window);
+                button_minus.draw(window);
+
+                button_7.draw(window);
+                button_8.draw(window);
+                button_9.draw(window);
+                button_multiply.draw(window);
+
+                button_clear_all.draw(window);
+                button_clear_last_symdol.draw(window);
+                button_point.draw(window);
+                button_division.draw(window);
+
+                button_display.draw(window);
 
             // 3. Visualizing
                 window.display();//show users what is drawn

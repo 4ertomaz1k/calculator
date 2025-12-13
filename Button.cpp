@@ -20,7 +20,7 @@ Button::Button(float width, float height, float radius, float x, float y, int r,
     // shadow properties
         shadowShape.setSize(sf::Vector2f(width, height));
         shadowShape.setPosition(sf::Vector2f(x, y + 5));
-        shadowShape.setFillColor(sf::Color(0.6*r, 0.6*g, 0.6*b));
+        shadowShape.setFillColor(sf::Color(r*0.65, g*0.65, b*0.65));
         shadowShape.setCornersRadius(radius); 
         shadowShape.setCornerPointCount(20);
 
