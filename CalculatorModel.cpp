@@ -1,3 +1,4 @@
+#include "CalculatorModel.h"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -48,23 +49,14 @@ long double result(std::string display_)
         case '*':
             return v1*v2;
         case '/':
-            return v1/v2;
+            if (v2 != 0)
+            { 
+                return v1 / v2;
+            }
+            return 0;
         default:
-            cout << "Something went wrong" << endl;
-            abort();
+            return v1; 
     }
 
-};
-
-int main()
-{
-
-    std::string display;
-    cin >> display;
-
-    cout << std::fixed;
-    cout << std::setprecision(15);
-    cout << result(display) <<endl;
-
-    return 0;
 }
+//doesn't working with negative numbers + need to fix the number of digits after the point

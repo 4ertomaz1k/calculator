@@ -18,12 +18,14 @@ Button::Button(float width, float height, float radius, float x, float y, int r,
         label.setFillColor(sf::Color(r_t, g_t, b_t));
         
     // shadow properties
+     if (width != 345)
+     {
         shadowShape.setSize(sf::Vector2f(width, height));
         shadowShape.setPosition(sf::Vector2f(x, y + 5));
         shadowShape.setFillColor(sf::Color(r*0.65, g*0.65, b*0.65));
         shadowShape.setCornersRadius(radius); 
         shadowShape.setCornerPointCount(20);
-
+     }
 
     //Centering text on button
         sf::FloatRect textBounds =  label.getLocalBounds(); //getLocalBounds() return a rectangle that covers the entire text.
@@ -47,4 +49,16 @@ void Button::draw(sf::RenderWindow& window) const
     window.draw(shadowShape);
     window.draw(shape);
     window.draw(label);
+}
+
+bool Button::isClicked(const sf::Vector2f& mousePos) const
+{
+    //Create a rectangle for the button's borders
+    sf::FloatRect bounds{shape.getPosition(), shape.getSize()};//Floatrect - 4s dimensional array gets 2 2s dimensional array(position and size)
+    return bounds.contains(mousePos);//bounds(our button) is it in mouspose(in mouse pose) - true/false
+}
+
+std::string Button::getText() const
+{
+    return label.getString();//get text
 }

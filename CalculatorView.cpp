@@ -1,4 +1,5 @@
 #include "Button.h"
+#include "CalculatorModel.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <filesystem>
@@ -22,8 +23,7 @@ int main()
     //Create font
         const sf::Font font("arimo.ttf");//load font
 
-    //Сreate buttons(rectangle)
-    //Button::Button         (float width, float height, float radius, float x, float y, int r, int g, int b, int r_t, int g_t, int b_t, const std::string& text, const sf::Font& font): label(font)
+    //Create buttons
         Button button_0     (255, 63.3, 10, 15, 422.36, 226, 226, 218, 0, 0, 0, "0", font);
         Button button_equals(75, 63.3, 10, 285, 422.36, 84, 84, 82, 255, 255, 255, "=", font);
 
@@ -47,7 +47,19 @@ int main()
         Button button_point(75, 63.3, 10, 15+((75+15)*2), 346.42-(75.94*3), 84, 84, 82, 255, 255, 255, ".", font);
         Button button_division(75, 63.3, 10, 15+((75+15)*3), 346.42-(75.94*3), 84, 84, 82, 255, 255, 255, "/", font);
 
-        Button button_display(345, 100, 10, 15, 10, 120, 120, 120, 255, 255, 255, "", font);
+        //array for reading buttons from screens
+            Button* buttons[] = 
+            {
+            &button_0, &button_1, &button_2, &button_3, 
+            &button_4, &button_5, &button_6, &button_7, 
+            &button_8, &button_9, &button_plus, &button_minus,
+            &button_multiply, &button_division, &button_point,
+            &button_equals, &button_clear_all, &button_clear_last_symdol
+            };
+
+        //for display button
+            std::string displayText = "0";
+
     //Game loop - cycle need to every visual program for constant updating of the screen
         while (window.isOpen()) // general cycle: while not close
         {
@@ -60,10 +72,65 @@ int main()
                     {
                         window.close();// Close the window and out of cycle
                     }
+
+            //if Mouse Button Pressed
+            if (event->is<sf::Event::MouseButtonPressed>())
+            {
+                const auto& mouseEvent = event->getIf<sf::Event::MouseButtonPressed>();//get info about clicked(where, what pressed) ; auto = sf::Event::MouseButtonPressed*; getIf - return pointer to ivent
+                if (mouseEvent->button == sf::Mouse::Button::Left)//if mouse hit button
+                {
+                    sf::Vector2f mousePos(mouseEvent->position.x, mouseEvent->position.y);//get coordination of click
+                    
+                    // check all buttons
+                    for (Button* btn : buttons)
+                    {
+                        if (btn->isClicked(mousePos))
+                        {
+                            std::string btnText = btn->getText();
+                            
+                            // click processing
+                            if (btnText == "C")
+                            {
+                                displayText = "0";
+                            }
+                            else if (btnText == ">")
+                            {
+                                if (displayText.length() > 1)
+                                {
+                                    displayText.pop_back();
+                                }
+                                else
+                                {
+                                    displayText = "0";
+                                }
+                            }
+                            else if (btnText == "=")
+                            {
+                                displayText = std::to_string(result(displayText));
+                            }
+                            else
+                            {
+                                // add symbol
+                                if (displayText == "0")
+                                {
+                                    displayText = btnText;
+                                }
+                                else
+                                {
+                                    displayText += btnText;
+                                }
+                            }
+                            
+                            break; // find button -> next iteration
+                        }
+                    }
                 }
+            }
+        }
 
             // 2. Drawing
                 window.clear(sf::Color(175,175,175));//clear the screen by the black color     144, 142, 129
+                
                 button_0.draw(window);
                 button_equals.draw(window);
 
@@ -87,7 +154,8 @@ int main()
                 button_point.draw(window);
                 button_division.draw(window);
 
-                button_display.draw(window);
+                Button current_display(345, 100, 10, 15, 10, 120, 120, 120, 255, 255, 255, displayText, font);
+                current_display.draw(window);
 
             // 3. Visualizing
                 window.display();//show users what is drawn

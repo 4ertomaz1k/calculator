@@ -18,6 +18,10 @@ public:
     
     // draw the button
     void draw(sf::RenderWindow& window) const;
+    //check if mouse clicked
+    bool isClicked(const sf::Vector2f& mousePos) const;
+    //get text on the display
+    std::string getText() const;
 };
 
 #endif //Closes the conditional compilation block.
