@@ -2,35 +2,55 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build SFML Calculator",
+            "label": "Build Calculator",
             "type": "shell",
-            //path to compiler
-            "command": "C:\\mingw64\\bin\\g++.exe", 
+            "command": "g++",
             "args": [
+                "-g",
+                "CalculatorView.cpp",
+                "Button.cpp",
                 "CalculatorModel.cpp",
                 "-o",
                 "Calculator.exe",
-                // path to include
                 "-I",
-                "C:\\SFML-3.0.2\\include",
-                // path to lib
+                "C:/SFML-3.0.2/include",
                 "-L",
-                "C:\\SFML-3.0.2\\lib",
-                // SFML Librarys
+                "C:/SFML-3.0.2/lib",
                 "-lsfml-graphics",
                 "-lsfml-window",
-                "-lsfml-system",
-                // Standart C++
-                "-std=c++17"
+                "-lsfml-system"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Компиляция калькулятора с SFML"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe сборка активного файла",
+            "command": "C:/mingw64/bin/g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "C:/mingw64/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "presentation": {
-                "reveal": "always"
-            },
-            "problemMatcher": "$gcc"
+            "detail": "Задача создана отладчиком."
         }
     ]
 }

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <filesystem>
+#include <string>
+#include <algorithm> // Обязательно для std::count
 
 //g++ CalculatorView.cpp Button.cpp -o Calculator.exe -I"C:\SFML-3.0.2\include" -L"C:\SFML-3.0.2\lib" -lsfml-graphics -lsfml-window -lsfml-system
 int main()
@@ -59,7 +61,13 @@ int main()
 
         //for display button
             std::string displayText = "0";
-
+            std::string all_sign = "+-*/.";
+            std::string all_operator = "+-*/";
+            char temporary_sign;
+            int is_operator_in_display = 0;
+            int max_point_on_display = 1;
+            int current_point_on_display = 0;
+            int is_point_in_v1 = 0;
     //Game loop - cycle need to every visual program for constant updating of the screen
         while (window.isOpen()) // general cycle: while not close
         {
@@ -89,10 +97,33 @@ int main()
                             std::string btnText = btn->getText();
                             
                             // click processing
+
+                            //check is_operator_in_display in this time
+                            if (all_operator.find(displayText.back()) != std::string::npos)
+                            {
+                                is_operator_in_display = 1;
+                                if (std::count(displayText.begin(), displayText.end(), '.') == 1 && is_point_in_v1 == 1)
+                                {
+                                    max_point_on_display = 2;
+                                }
+
+                            }
+
+                            //check point in v1
+                            if (is_operator_in_display == 0 && std::count(displayText.begin(), displayText.end(), '.') == 1)
+                            {
+                                is_point_in_v1 = 1;
+                            }
+
+                            //check is_point_on_display in this time
+                            current_point_on_display = std::count(displayText.begin(), displayText.end(), '.');
+
+                            //clear all
                             if (btnText == "C")
                             {
                                 displayText = "0";
                             }
+                            //clear last symbol
                             else if (btnText == ">")
                             {
                                 if (displayText.length() > 1)
@@ -104,17 +135,55 @@ int main()
                                     displayText = "0";
                                 }
                             }
+                            //counting the results
                             else if (btnText == "=")
                             {
                                 displayText = std::to_string(result(displayText));
+                                is_operator_in_display = 0;
+                                current_point_on_display = 0;
+                                max_point_on_display = 1;
                             }
                             else
                             {
                                 // add symbol
+
+                                //zero processing
                                 if (displayText == "0")
                                 {
-                                    displayText = btnText;
+                                    if (all_sign.find(btnText[0]) != std::string::npos)
+                                    {
+                                        displayText += btnText;
+                                    }
+                                    else
+                                    {
+                                        displayText = btnText;
+                                    }
                                 }
+                                
+                                //do not allow two points to appear in one variable
+                                else if (current_point_on_display == max_point_on_display && btnText.find(".") != std::string::npos)
+                                {
+                                    displayText = displayText;
+                                }
+
+                                //if last symbol in displayText is operator and current symbol in btnText also operator -> we do only the new operator
+                                else if (all_sign.find(displayText.back()) != std::string::npos && all_sign.find(btnText[0]) != std::string::npos)
+                                {
+                                    
+                                    displayText.back() = btnText[0];
+                                }
+
+                                //if we get 2 operator on display -> counting result before second operator and add second operator after result
+                                else if (is_operator_in_display && all_operator.find(btnText[0]) != std::string::npos)
+                                {
+                                    temporary_sign = btnText[0];
+                                    displayText = std::to_string(result(displayText))+temporary_sign;
+                                    is_operator_in_display = 0;
+                                    current_point_on_display = 0;
+                                    max_point_on_display = 1;
+                                }
+
+                                //processing 0-9 and + - * / .
                                 else
                                 {
                                     displayText += btnText;

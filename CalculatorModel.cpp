@@ -18,24 +18,30 @@ long double result(std::string display_)
     for (;r < display_.length();r++)
     {
         // if find sign("+-*/") or r achieved the end of the line(expression)
-        if (all_sign.find(display_[r]) != std::string::npos || r == (display_.length()-1)) //std::string::npos - not found
+        if ( all_sign.find(display_[r]) != std::string::npos || r == display_.length()-1) //std::string::npos - not found
         {
-            if (!current_sign)
-            { 
-            current_sign = display_[r]; 
-            }
-
-            if (!v1) 
+            if (display_[r] == '-' && r == 0)//for working if v1 is negative
             {
-                v1 = std::stod(display_.substr(l,r));//stod - string to double; substr(l,r) - line slice(from l to b not inclusive)
+                continue;
             }
 
-            else
-            {
-                v2 = std::stod(display_.substr(l+1,r-l));//substr gets(start position(index), len symbols)
-            }
+                if (!current_sign)
+                { 
+                    current_sign = display_[r]; 
+                }
+                // cout << std::stod(display_.substr(l,r)) << endl;
+                if (!v1) 
+                {
+                    v1 = std::stod(display_.substr(l,r));//stod - string to double; substr(l,r) - line slice(from l to b not inclusive)
+                }
 
-            l=r;
+                else
+                {
+                    v2 = std::stod(display_.substr(l+1,r-l));//substr gets(start position(index), len symbols)
+                }
+
+                l=r;
+            
         }
 
     }
@@ -59,4 +65,4 @@ long double result(std::string display_)
     }
 
 }
-//doesn't working with negative numbers + need to fix the number of digits after the point
+// need to fix the number of digits after the point + int if .0000000  + ищи ошибку - прикол с точками + вправо значения на дисплее + стирашка точки + удалить все считает все выражение
