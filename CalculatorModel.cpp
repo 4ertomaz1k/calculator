@@ -1,7 +1,6 @@
 #include "CalculatorModel.hpp"
 #include <iostream>
 #include <string>
-#include <iomanip>
 
 using std::cin;
 using std::cout;
@@ -32,7 +31,7 @@ long double result(std::string display_)
                 // cout << std::stod(display_.substr(l,r)) << endl;
                 if (!v1) 
                 {
-                    v1 = std::stod(display_.substr(l,r));//stod - string to double; substr(l,r) - line slice(from l to b not inclusive)
+                    v1 = std::stod(display_.substr(l,r+1));//stod - string to double; substr(l,r+1) - line slice(from l to r+1 not inclusive)
                 }
 
                 else
@@ -49,20 +48,25 @@ long double result(std::string display_)
     switch (current_sign)
     {
         case '+':
-            return v1+v2;
+            return v1 + v2;//rounding to 3 numbers after point
         case '-':
-            return v1-v2;
+            return v1 - v2;
         case '*':
-            return v1*v2;
+            return v1 * v2;
         case '/':
             if (v2 != 0)
             { 
                 return v1 / v2;
             }
-            return 0;
+            return 228;
         default:
             return v1; 
     }
 
 }
-// need to fix the number of digits after the point + int if .0000000  +  вправо значения на дисплее + стирашка точки + удалить все считает все выражение + с делением на ноль что то придумать
+
+//с делением на ноль что то придумать
+//малая и большая стирашка фикс всего, особенно точек
+//проверка всего
+//точка вниз а стирашка на 1 вправо 
+//вправо значения на дисплее
