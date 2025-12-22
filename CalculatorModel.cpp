@@ -1,4 +1,4 @@
-#include "CalculatorModel.h"
+#include "CalculatorModel.hpp"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -65,4 +65,4 @@ long double result(std::string display_)
     }
 
 }
-// need to fix the number of digits after the point + int if .0000000  + ищи ошибку - прикол с точками + вправо значения на дисплее + стирашка точки + удалить все считает все выражение
+// need to fix the number of digits after the point + int if .0000000  +  вправо значения на дисплее + стирашка точки + удалить все считает все выражение + с делением на ноль что то придумать

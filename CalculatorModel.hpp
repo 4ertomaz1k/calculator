@@ -1,5 +1,5 @@
-#ifndef CALCULATORMODEL_H
-#define CALCULATORMODEL_H
+#ifndef CALCULATORMODEL_HPP
+#define CALCULATORMODEL_HPP
 
 #include <string>
 

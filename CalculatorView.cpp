@@ -1,12 +1,13 @@
-#include "Button.h"
-#include "CalculatorModel.h"
+#include "Button.hpp"
+#include "CalculatorModel.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <filesystem>
 #include <string>
-#include <algorithm> // Обязательно для std::count
+#include <algorithm>// Necessarily for std::count
+#include <stdexcept>// Necessarily for std::invalid_argument
 
-//g++ CalculatorView.cpp Button.cpp -o Calculator.exe -I"C:\SFML-3.0.2\include" -L"C:\SFML-3.0.2\lib" -lsfml-graphics -lsfml-window -lsfml-system
+//g++ CalculatorView.cpp Button.cpp CalculatorModel.cpp -o Calculator.exe -I"C:\SFML-3.0.2\include" -L"C:\SFML-3.0.2\lib" -lsfml-graphics -lsfml-window -lsfml-system
 int main()
 {
 
@@ -68,6 +69,7 @@ int main()
             int max_point_on_display = 1;
             int current_point_on_display = 0;
             int is_point_in_v1 = 0;
+            int operatorCount = 0;
     //Game loop - cycle need to every visual program for constant updating of the screen
         while (window.isOpen()) // general cycle: while not close
         {
@@ -98,50 +100,86 @@ int main()
                             
                             // click processing
 
-                            //check is_operator_in_display in this time
-                            if (all_operator.find(displayText.back()) != std::string::npos)
-                            {
-                                is_operator_in_display = 1;
-                                if (std::count(displayText.begin(), displayText.end(), '.') == 1 && is_point_in_v1 == 1)
+
+
+                            //check how much operator on display
+                                for (char c : displayText) {
+                                    if (all_operator.find(c) != std::string::npos) {
+                                        operatorCount++;
+                                    }
+                                }
+
+                            //check is operator in display
+                                if ((displayText[0] != '-' && operatorCount == 1) || (displayText[0] == '-' && operatorCount == 2))
+                                {
+                                    is_operator_in_display = 1;
+                                }
+
+                            //check point in v1
+                                if (is_operator_in_display == 0 && std::count(displayText.begin(), displayText.end(), '.') == 1)
+                                {
+                                    is_point_in_v1 = 1;
+                                }
+
+                            //check is point on display
+                                current_point_on_display = std::count(displayText.begin(), displayText.end(), '.');
+
+                            //change max point on display
+                                if (is_operator_in_display && is_point_in_v1)
                                 {
                                     max_point_on_display = 2;
                                 }
 
-                            }
-
-                            //check point in v1
-                            if (is_operator_in_display == 0 && std::count(displayText.begin(), displayText.end(), '.') == 1)
-                            {
-                                is_point_in_v1 = 1;
-                            }
-
-                            //check is_point_on_display in this time
-                            current_point_on_display = std::count(displayText.begin(), displayText.end(), '.');
-
                             //clear all
-                            if (btnText == "C")
-                            {
-                                displayText = "0";
-                            }
-                            //clear last symbol
-                            else if (btnText == ">")
-                            {
-                                if (displayText.length() > 1)
-                                {
-                                    displayText.pop_back();
-                                }
-                                else
+                                if (btnText == "C")
                                 {
                                     displayText = "0";
+                                    is_operator_in_display = 0;
+                                    current_point_on_display = 0;
+                                    max_point_on_display = 1;
+                                    is_point_in_v1 = 0;
                                 }
-                            }
+                            //clear last symbol
+                                else if (btnText == ">")
+                                {
+                                    if (displayText.length() > 1)
+                                    {
+                                        displayText.pop_back();
+                                        if (btnText[0] == '+' || btnText[0] == '-' || btnText[0] == '*' || btnText[0] == '/')
+                                        {
+                                            is_operator_in_display -= 1;
+                                            max_point_on_display -=1;
+                                        }
+                                        else if (btnText[0] == '.')
+                                        {
+                                            current_point_on_display -= 1;
+                                            if (std::count(displayText.begin(), std::prev(displayText.end()), '.') == 1)
+                                            {
+                                                is_point_in_v1 = 1;
+                                            }
+                                            else
+                                            {
+                                                is_point_in_v1 = 0;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        displayText = "0";
+                                    }
+                                }
                             //counting the results
                             else if (btnText == "=")
                             {
+                                try//if we have not enough arguments to countinng result function
+                                {
                                 displayText = std::to_string(result(displayText));
                                 is_operator_in_display = 0;
                                 current_point_on_display = 0;
                                 max_point_on_display = 1;
+                                is_point_in_v1 = 0;
+                                }
+                                catch (const std::invalid_argument& e) {}
                             }
                             else
                             {
@@ -181,6 +219,7 @@ int main()
                                     is_operator_in_display = 0;
                                     current_point_on_display = 0;
                                     max_point_on_display = 1;
+                                    is_point_in_v1 = 0;
                                 }
 
                                 //processing 0-9 and + - * / .
