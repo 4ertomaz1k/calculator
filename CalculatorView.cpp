@@ -38,7 +38,15 @@ void res(std::string* ptrdisplayText)
         (*ptrdisplayText) = temp;
     }
 
-    catch (const std::invalid_argument& e) {}
+    catch (const std::runtime_error& e) 
+    {
+        *ptrdisplayText = e.what(); //if result activated throw - > output text of error in display from result function
+    }
+    catch (const std::invalid_argument& e) 
+    {
+        *ptrdisplayText = "Invalid Input";
+    }
+
 }
 
 
@@ -137,9 +145,19 @@ int main()
                             if (btn->isClicked(mousePos))
                             {
                                 std::string btnText = btn->getText();
+
+                                //calculator lock when dividing by 0
+                                bool isError = (displayText.find("Division by zero is not possible") != std::string::npos || displayText == "Invalid Input");
+
+                                if (isError) 
+                                {
+                                    if (btnText != "C" && btnText != ">") 
+                                    {
+                                        continue;
+                                    }
+                                }
                                 
                                 //counting necessary variables
-                                    
 
                                     //operatorCount = 0
                                         operatorCount = 0;
@@ -177,11 +195,18 @@ int main()
 
                                     // bool is_point_in_v1 = false;
                                         is_point_in_v1 = false;
-                                            if ( ( (!is_operator_between_variables) && (current_point_on_display == 1) ) || ( (is_operator_between_variables) && (current_point_on_display == 2) ) )
+                                            for (int operator_index = 0; operator_index < displayText.length();operator_index++)
                                             {
-                                                is_point_in_v1 = true;
+                                                if (((displayText[operator_index] == '+' || displayText[operator_index] == '-' || displayText[operator_index] == '*' || displayText[operator_index] == '/') || (operator_index = displayText.length() - 1)) && (operator_index != 0))
+                                                    for (int point_index = 0; point_index < operator_index; point_index++)
+                                                    {
+                                                        if (displayText[point_index] == '.')
+                                                        {
+                                                            is_point_in_v1 = true;
+                                                            break;
+                                                        }
+                                                    }
                                             }
-
 
                                     // int max_point_on_display = 1;
                                         max_point_on_display = 1;
@@ -195,7 +220,7 @@ int main()
                                 // click processing
 
 
-                                //временно
+                                //temporary output
                                     std::cout << "is_minus_in_v1 = " << is_minus_in_v1 << std::endl;
                                     std::cout << "is_point_in_v1 = " << is_point_in_v1 << std::endl;
                                     std::cout << "is_operator_between_variables = " << is_operator_between_variables << std::endl;
@@ -215,6 +240,10 @@ int main()
                                             if (displayText.length() > 1)
                                             {
                                                 displayText.pop_back();
+                                                if (isError)
+                                                {
+                                                    displayText = "0";
+                                                }
                                             }
 
                                             else
@@ -267,7 +296,7 @@ int main()
                                                     }
 
                                                 //do not allow two points to appear in one variable
-                                                    else if ((current_point_on_display == max_point_on_display) && (btnText.find(".") != std::string::npos))
+                                                    else if ((current_point_on_display == max_point_on_display) && (btnText.find(".") != std::string::npos) || (!is_point_in_v1 && is_operator_between_variables && max_point_on_display == 2 && current_point_on_display == 1 && btnText.find(".") != std::string::npos))
                                                     {}
 
                                                 //if we get 2 operator on display -> counting result before second operator and add second operator after result

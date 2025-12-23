@@ -2,11 +2,6 @@
 #include <iostream>
 #include <string>
 
-using std::cin;
-using std::cout;
-using std::endl;
-
-// + - * /
 long double result(std::string display_)
 {
     long double v1=0,v2=0;
@@ -48,7 +43,7 @@ long double result(std::string display_)
     switch (current_sign)
     {
         case '+':
-            return v1 + v2;//rounding to 3 numbers after point
+            return v1 + v2;
         case '-':
             return v1 - v2;
         case '*':
@@ -58,15 +53,14 @@ long double result(std::string display_)
             { 
                 return v1 / v2;
             }
-            return 228;
+            throw std::runtime_error("Division by zero is not possible");
         default:
             return v1; 
     }
 
 }
 
-//с делением на ноль что то придумать
-//малая и большая стирашка фикс всего, особенно точек
-//проверка всего
+
 //точка вниз а стирашка на 1 вправо 
 //вправо значения на дисплее
+//чутка подправить дизайн, текст у экрана +  чтобы не вылезало за границы

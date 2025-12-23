@@ -14,7 +14,11 @@ Button::Button(float width, float height, float radius, float x, float y, int r,
 
     //text properties
         label.setString(text);
-        label.setCharacterSize(45);       
+        label.setCharacterSize(45);  
+        if (text == "Division by zero is not possible")
+        {
+            label.setCharacterSize(22);  
+        }
         label.setFillColor(sf::Color(r_t, g_t, b_t));
         
     // shadow properties
