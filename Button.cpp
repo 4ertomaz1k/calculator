@@ -15,7 +15,15 @@ Button::Button(float width, float height, float radius, float x, float y, int r,
     //text properties
         label.setString(text);
         label.setCharacterSize(45);  
-        if (text == "Division by zero is not possible")
+        if (width > 300)
+        {
+            label.setCharacterSize(52);//for displayText
+        }
+        if (text.length() >= 11)
+        {
+            label.setCharacterSize(38);//for big numbers
+        }
+        if (text.find("not") != std::string::npos)//for division by 0 and 0/0
         {
             label.setCharacterSize(22);  
         }
@@ -32,17 +40,22 @@ Button::Button(float width, float height, float radius, float x, float y, int r,
      }
 
     //Centering text on button
-        sf::FloatRect textBounds =  label.getLocalBounds(); //getLocalBounds() return a rectangle that covers the entire text.
+        sf::FloatRect textBounds = label.getLocalBounds(); //getLocalBounds() return a rectangle that covers the entire text.
     
         // Centering text relative to itself
-            label.setOrigin(sf::Vector2f(
+            label.setOrigin//the center of the rectangle that describes the text.
+            (sf::Vector2f
+                (
                 textBounds.position.x + textBounds.size.x / 2.0f,//textBounds.position.x - X is the coordinate of the left edge of the text  | textBounds.position.y - Y is the coordinate of the top edge of the text
                 textBounds.position.y + textBounds.size.y / 2.0f//textBounds.size.x - text width (in pixels) | textBounds.size.y - text height (in pixels)
-            ));
+                )
+            );
 
-        // Position text center at button center
+        //Calculating the center of the button
             float buttonCenterX = shape.getPosition().x + shape.getSize().x / 2.0f;
             float buttonCenterY = shape.getPosition().y + shape.getSize().y / 2.0f;
+
+         //Positioning text center at button center
             label.setPosition(sf::Vector2f(buttonCenterX, buttonCenterY));
     
 }
