@@ -1,8 +1,9 @@
 #include "Button.hpp"
 #include "CalculatorModel.hpp"
+#include "SFML/Graphics.hpp"
+#include "font_data.hpp"
+
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <filesystem>
 #include <string>
 #include <algorithm>// Necessarily for std::count
 #include <stdexcept>// Necessarily for std::invalid_argument
@@ -13,6 +14,7 @@ std::string*ptrdisplayText = &displayText;
 std::string all_operator = "+-*/";
 std::string temp;
 
+//translates long double to sting + fix result of operations and output on displayText
 void res(std::string* ptrdisplayText)
 {
     try
@@ -54,7 +56,8 @@ void res(std::string* ptrdisplayText)
 
 
 
-//g++ CalculatorView.cpp Button.cpp CalculatorModel.cpp -o Calculator.exe -I"C:\SFML-3.0.2\include" -L"C:\SFML-3.0.2\lib" -lsfml-graphics -lsfml-window -lsfml-system
+// Сommand to compile - g++ CalculatorView.cpp Button.cpp CalculatorModel.cpp -o "./SFML_static/Calculator.exe" -I"./SFML_static/include" -L"./SFML_static/lib" -lsfml-graphics -lsfml-window -lsfml-system -mwindows
+// Сommand to launch - .\SFML_static\Calculator.exe
 int main()
 {
 
@@ -71,8 +74,11 @@ int main()
         settings            // Passing the anti-aliasing settings
     );
 
-    //Create font
-        const sf::Font font("arimo.ttf");//load font
+    //Create font(load from Memory(font_data.hpp))
+        sf::Font font;
+        if (!font.openFromMemory(arimo_ttf, arimo_ttf_len)) {
+            //error
+        }
 
     //Create buttons
         Button button_0     (165, 63.3, 10, 15, 422.36, 226, 226, 218, 0, 0, 0, "0", font);

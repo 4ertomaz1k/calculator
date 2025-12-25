@@ -1,8 +1,10 @@
 #ifndef BUTTON_H//the first activation, BUTTON.H is not defined, the code inside the block is not executed
 #define BUTTON_H//we define the BUTTON_H label, the processor knows that this file has already been processed.
+
 #include "SFML/Graphics.hpp"
-#include <string>
 #include "RoundedRectangleShape.hpp"
+
+#include <string>
 
 class Button {
 private:

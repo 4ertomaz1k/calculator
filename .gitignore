@@ -1,5 +1,5 @@
 #executable
-*.exe
+# *.exe
 
 #object files(промежуточные)
 *.o
@@ -9,7 +9,7 @@
 a.out
 
 #folder for Visual Studio Code
-# .vscode/
+.vscode/
 
 # Folders and files for other IDEs/Assemblies, if they are usedbuild/
 bin/

@@ -1,13 +1,15 @@
 #ifndef SFML_ROUNDEDRECTANGLESHAPE_HPP
 #define SFML_ROUNDEDRECTANGLESHAPE_HPP
 
-#include <SFML/Graphics/Shape.hpp>
-#include <SFML/Graphics/Rect.hpp>
+#include "SFML/Graphics/Shape.hpp"
+#include "SFML/Graphics/Rect.hpp"
+
 #include <cmath>
 
 class RoundedRectangleShape : public sf::Shape
 {
 public:
+    //explicit - you can't accidentally transfer a vector or size where a whole button or shape is expected
     explicit RoundedRectangleShape(const sf::Vector2f& size = sf::Vector2f(0, 0), float radius = 0, unsigned int cornerPointCount = 10);
 
     void setSize(const sf::Vector2f& size);

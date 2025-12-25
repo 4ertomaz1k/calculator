@@ -6,19 +6,15 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g",
-                "CalculatorView.cpp",
-                "Button.cpp",
-                "CalculatorModel.cpp",
-                "-o",
-                "Calculator.exe",
-                "-I",
-                "C:/SFML-3.0.2/include",
-                "-L",
-                "C:/SFML-3.0.2/lib",
+                "-g", "CalculatorView.cpp", "Button.cpp", "CalculatorModel.cpp",
+                "-o", "./SFML_static/Calculator.exe",
+                "-I", "./SFML_static/include",
+                "-L", "./SFML_static/lib",
                 "-lsfml-graphics",
                 "-lsfml-window",
-                "-lsfml-system"
+                "-lsfml-system",
+                "-ldwmapi",
+                "-mwindows"
             ],
             "group": {
                 "kind": "build",
@@ -27,11 +23,11 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "detail": "Компиляция калькулятора с SFML"
+            "detail": "Сompilation of the calculator with SFML"
         },
         {
             "type": "cppbuild",
-            "label": "C/C++: g++.exe сборка активного файла",
+            "label": "C/C++: g++.exe build active file",
             "command": "C:/mingw64/bin/g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
@@ -50,7 +46,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Задача создана отладчиком."
+            "detail": "Task created by debugger"
         }
     ]
 }

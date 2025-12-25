@@ -1,4 +1,5 @@
 #include "CalculatorModel.hpp"
+
 #include <iostream>
 #include <string>
 

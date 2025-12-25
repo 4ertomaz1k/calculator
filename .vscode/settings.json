@@ -1,7 +1,7 @@
 {
     // These settings only affect the file explorer in VS Code.
     "files.exclude": {
-        "**/*.exe": true,       // Hide all executable files (.exe)
+        "**/*.exe": false,       // Hide all executable files (.exe)
         "**/*.o": true,         // Hide object files (.o) created during compilation
         "**/a.out": true,       // Hide the default g++ output file
         "**/bin": true,         // Hide the 'bin' folder (often used for compiled output)
