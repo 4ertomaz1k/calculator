@@ -34,6 +34,7 @@ void res(std::string* ptrdisplayText)
                 if (temp[temp.length() - 1] == '.')
                 {
                     temp.pop_back();
+                    break;
                 }
             }
 
