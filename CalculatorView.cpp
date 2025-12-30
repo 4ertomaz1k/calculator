@@ -219,7 +219,7 @@ int main()
                                         is_point_in_v1 = false;
                                             for (int operator_index = 0; operator_index < displayText.length();operator_index++)
                                             {
-                                                if (((displayText[operator_index] == '+' || displayText[operator_index] == '-' || displayText[operator_index] == '*' || displayText[operator_index] == '/') || (operator_index == displayText.length() - 1)) && (operator_index != 0))
+                                                if (((displayText[operator_index] == '+' || displayText[operator_index] == '-' || displayText[operator_index] == '*' || displayText[operator_index] == '/')))
                                                     for (int point_index = 0; point_index < operator_index; point_index++)
                                                     {
                                                         if (displayText[point_index] == '.')
@@ -232,12 +232,19 @@ int main()
 
                                     // int max_point_on_display = 1;
                                         max_point_on_display = 1;
-                                        if (is_operator_between_variables)
+                                        if (is_operator_between_variables && is_point_in_v1)
                                         {
                                             max_point_on_display = 2;
                                         }   
-
-
+                                        
+            //temporary
+                // std::cout << "max_point_on_display: " << max_point_on_display << std::endl;
+                // std::cout << "current_point_on_display: " << current_point_on_display << std::endl;
+                // std::cout << "is_point_in_v1: " << is_point_in_v1 << std::endl;
+                // std::cout << "operatorCount: " << operatorCount << std::endl;
+                // std::cout << "is_minus_in_v1: " << is_minus_in_v1 << std::endl;
+                // std::cout << "is_operator_between_variables: " << is_operator_between_variables << std::endl;
+                // std::cout << "" << std::endl;
 
                                 // click processing
 
